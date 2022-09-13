@@ -1,24 +1,22 @@
 ﻿namespace CSharp.Methods.Study {
     internal class Program {
         static void Main(string[] args) {
-            Foo(9, 8.65, 1, 2, 3, 4, 5);    //  1, 2, 3, 4, 5 are passed as varargs
+            //  classical approach
+            int a;
+            double b;
+            Foo(out a, out b, 7);   //  out parameters should be called with out
+
+            //   Since C# 6.0
+            Foo(out int i, out double d, 89);    // i and d are in scope from this point
         }
 
-        //  C# supports variadic methods
-
-        //  Rules:
-        //  a method can take only one params
-        //  params must be at the end
-        //  params type should be an array
-        //  params is optional
-        //  default value for the parameter array is not allowed
-        static void Foo(int x, double y, params int[] z) {
-            Console.WriteLine($"int x = {x}");
-            Console.WriteLine($"double y = {y}");
-
-            foreach (var el in z) {
-                Console.WriteLine($"Element in z -> {el}");
-            }
+        //  In C#, it is possible to return multiple values using out parameters
+        //  out parameters cannot have default values
+        //  out cannot be used with keywords: params or ref or in
+        static void Foo(out int x, out double y, int z) {
+            //  All out parameters must be assigned before return
+            x = 90;
+            y = 3.1415926535 * z;
         }
     }
 }
