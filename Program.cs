@@ -1,19 +1,26 @@
 ﻿namespace CSharp.Methods.Study {
     internal class Program {
         static void Main(string[] args) {
-            //  named parameters can be defined in an arbitrary order
-            Sum(y: 8, x: 7);
+            //  Parameters are passed by value by default
+            int i = 9;
+            Foo(i);
+            Console.WriteLine(i);   //  still 9
 
-            //  avoid mixing positional and named parameters
-            //  Sum(y: 9, 12);  //  Illegal
-            
-            Sum(8, y: 56);  //  Legal, but confusing
-            Sum(x: 9, 78);  //  Legal, but confusing
+            int[] scores = { 7, 8, 9 };
+            Foo(scores);
+            Console.WriteLine($"{scores[0]}, {scores[1]}, {scores[2]}");    //  scores is intact
         }
 
-        //  The optional parameters must come after the required parameters
-        static int Sum(int x, int y) {
-            return x + y;
+        static void Foo(int x) {
+            ++x;    //  Foo gets its own copy of x
+        }
+
+        static void Foo(int[] ar) {
+            //  ar is a reference copy of the argument passed
+            //  If ar changes to a new value (null in this case),
+            //  it doesn't affect the argument's binding with the object
+
+            ar = null;  
         }
     }
 }
