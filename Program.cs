@@ -10,6 +10,16 @@
         //  Useful dealing with heavy-weight structs
         //  in parameter is a reference, so the copy is not made
         //  and in parameter is readonly
+
+        //  members declared in a single type cannot differ in signature
+        //  solely by in, ref and out
+        //  SampleMethod(in int) and SampleMethod(ref int) is illegal
+
+        //  Overloading based on the presence of in is allowed
+        //  SampleMethod(in int) and SampleMethod(int) is legal
+
+        //  for overload resolution:
+        //  https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-parameter-modifier#overload-resolution-rules
         static void Foo(in ComplexNumber cn) {
             //  in parameters cannot be assigned
             //  but mutation is allowed
